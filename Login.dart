@@ -1,31 +1,26 @@
+import 'package:beni_app/Signup.dart';
 import 'package:flutter/material.dart';
+import 'homepage.dart';
 
-void main() {
-  runApp(const Signup());
-}
-
-class Signup extends StatelessWidget {
-  static const String id = 'Signup';
-  const Signup({super.key});
+class Login extends StatelessWidget {
+  static const String id = 'Login';
+  const Login({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color(0xFFFFE8CD), // Set background color to black
+        backgroundColor: Colors.white, // Set background color to white
         body: Padding(
           padding: const EdgeInsets.all(60),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment:
+                MainAxisAlignment.center, // Center everything vertically
             children: [
-              const Icon(
-                Icons.account_circle,
-                color: Color(0xFFFF7A30),
-                size: 100,
-              ),
+              const Icon(Icons.account_circle, color: Colors.blue, size: 100),
               const SizedBox(height: 20),
               const Text(
-                'Sign up',
+                'Login',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -38,6 +33,7 @@ class Signup extends StatelessWidget {
                   border: OutlineInputBorder(),
                   labelText: 'Email',
                 ),
+                style: TextStyle(color: Color.fromARGB(255, 0, 0, 255)),
               ),
               const SizedBox(height: 20),
               const TextField(
@@ -48,30 +44,33 @@ class Signup extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              const TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Confirm password',
-                ),
-              ),
-              const SizedBox(height: 20),
+              // Centering the button
               SizedBox(
-                width: double.infinity,
-                // Match the width of the TextField
+                width: double
+                    .infinity, // Make the button take the full width of the parent
                 child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFFF7A30),
-                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) {
+                          return Homepage();
+                        },
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                   child: const Text(
-                    'Register',
-                    style: TextStyle(color: Color(0xFFFFFFFF)),
+                    'Login',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
               const SizedBox(height: 20),
-              const Text('Already have an account?'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [Text('Sign up'), Text('Forgot password?')],
+              ),
             ],
           ),
         ),
