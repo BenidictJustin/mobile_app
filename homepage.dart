@@ -28,9 +28,26 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  int selectIndex = 1;
+  int selectIndex = 0; // HomeScreen index
 
-  final List<Widget> pages = [HomeScreen(), Diary(), Weather(), Alarm()];
+  late final List<Widget> pages;
+
+  @override
+  void initState() {
+    super.initState();
+    pages = [
+      HomeScreen(onFeatureSelected: onFeatureSelected),
+      const Diary(),
+      const Weather(),
+      const Alarm(),
+    ];
+  }
+
+  void onFeatureSelected(int index) {
+    setState(() {
+      selectIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +55,11 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(title: const Text('BENI APP')),
       body: pages[selectIndex],
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.orange[200],
         currentIndex: selectIndex,
+        selectedItemColor: Colors.orange,
+        unselectedItemColor: Colors.black,
+        selectedLabelStyle: const TextStyle(color: Colors.orange),
+        unselectedLabelStyle: const TextStyle(color: Colors.black),
         onTap: (index) {
           setState(() {
             selectIndex = index;
@@ -49,118 +69,130 @@ class _HomepageState extends State<Homepage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(icon: Icon(Icons.note), label: 'Diary'),
           BottomNavigationBarItem(icon: Icon(Icons.cloud), label: 'Weather'),
           BottomNavigationBarItem(icon: Icon(Icons.alarm), label: 'Alarm'),
         ],
       ),
+
     );
   }
 }
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final void Function(int) onFeatureSelected;
+
+  const HomeScreen({super.key, required this.onFeatureSelected});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment:
-            MainAxisAlignment.center, // Centers the content vertically
-        children: [
-          //const SizedBox(height: 20),
-          const Text(
-            'Hi, Benidict! 👋',
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 10),
-          const Text(
-            'What would you like to do today?',
-            style: TextStyle(fontSize: 18, color: Colors.black45),
-          ),
-          const SizedBox(height: 20),
-          // Ensure feature cards have a fixed height
-          FeatureCard(
-            icon: Icons.note,
-            title: 'Diary',
-            description: 'Write your thoughts',
-            onTap: () {
-              // Handle navigation to Diary screen
-            },
-          ),
-          const SizedBox(height: 20),
-          FeatureCard(
-            icon: Icons.cloud,
-            title: 'Weather',
-            description: 'Check local weather',
-            onTap: () {
-              // Handle navigation to Weather screen
-            },
-          ),
-          const SizedBox(height: 20),
-          FeatureCard(
-            icon: Icons.alarm,
-            title: 'Alarm',
-            description: 'Set your alarm',
-            onTap: () {
-              // Handle navigation to Alarm screen
-            },
-          ),
-        ],
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 30),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Hi, Benidict! 👋',
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'What would you like to do today?',
+              style: TextStyle(fontSize: 18, color: Colors.black45),
+            ),
+            const SizedBox(height: 30),
+
+            FeatureButton(
+              icon: Icons.note,
+              title: 'Diary',
+              description: 'Write your thoughts',
+              onPressed: () {
+                onFeatureSelected(1); // Switch to Diary tab
+              },
+            ),
+            const SizedBox(height: 20),
+
+            FeatureButton(
+              icon: Icons.cloud,
+              title: 'Weather',
+              description: 'Check local weather',
+              onPressed: () {
+                onFeatureSelected(2); // Switch to Weather tab
+              },
+            ),
+            const SizedBox(height: 20),
+
+            FeatureButton(
+              icon: Icons.alarm,
+              title: 'Alarm',
+              description: 'Set your alarm',
+              onPressed: () {
+                onFeatureSelected(3); // Switch to Alarm tab
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class FeatureCard extends StatelessWidget {
+class FeatureButton extends StatelessWidget {
   final IconData icon;
   final String title;
   final String description;
-  final VoidCallback onTap;
+  final VoidCallback onPressed;
 
-  const FeatureCard({
+  const FeatureButton({
     super.key,
     required this.icon,
     required this.title,
     required this.description,
-    required this.onTap,
+    required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 40, color: Colors.brown[600]),
-              const SizedBox(height: 10),
-              Text(
-                title,
-                style: Theme.of(
-                  context,
-                ).textTheme.headlineMedium?.copyWith(color: Colors.brown[600]),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                description,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge?.copyWith(color: Colors.brown[400]),
-                textAlign: TextAlign.center,
-              ),
-            ],
+    return SizedBox(
+      width: 180,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.brown[600],
+          elevation: 5,
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 40, color: Colors.brown[600]),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.brown[600],
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              description,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.brown[400],
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );

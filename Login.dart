@@ -15,7 +15,7 @@ class Login extends StatelessWidget {
           padding: const EdgeInsets.all(60),
           child: Column(
             mainAxisAlignment:
-                MainAxisAlignment.center, // Center everything vertically
+            MainAxisAlignment.center, // Center everything vertically
             children: [
               const Icon(Icons.account_circle, color: Colors.blue, size: 100),
               const SizedBox(height: 20),
