@@ -79,12 +79,12 @@ class _AlarmState extends State<Alarm> {
                     });
                   },
                   children: const [
+                    Text('S', style: TextStyle(fontWeight: FontWeight.bold)),
                     Text('M', style: TextStyle(fontWeight: FontWeight.bold)),
                     Text('T', style: TextStyle(fontWeight: FontWeight.bold)),
                     Text('W', style: TextStyle(fontWeight: FontWeight.bold)),
                     Text('T', style: TextStyle(fontWeight: FontWeight.bold)),
                     Text('F', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('S', style: TextStyle(fontWeight: FontWeight.bold)),
                     Text('S', style: TextStyle(fontWeight: FontWeight.bold)),
                   ],
                 ),

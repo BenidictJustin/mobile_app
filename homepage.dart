@@ -2,6 +2,7 @@ import 'package:beni_app/Alarm.dart';
 import 'package:beni_app/Diary.dart';
 import 'package:beni_app/Weather.dart';
 import 'package:flutter/material.dart';
+import 'package:beni_app/Setting.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,6 +41,7 @@ class _HomepageState extends State<Homepage> {
       const Diary(),
       const Weather(),
       const Alarm(),
+      const Setting(),
     ];
   }
 
@@ -73,6 +75,7 @@ class _HomepageState extends State<Homepage> {
           BottomNavigationBarItem(icon: Icon(Icons.note), label: 'Diary'),
           BottomNavigationBarItem(icon: Icon(Icons.cloud), label: 'Weather'),
           BottomNavigationBarItem(icon: Icon(Icons.alarm), label: 'Alarm'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
         ],
       ),
 
