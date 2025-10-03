@@ -40,31 +40,23 @@ class ResetPass extends StatelessWidget {
               const SizedBox(height: 30),
 
               // New password field
-              TextField(
-                controller: newPasswordController,
-                obscureText: true,
+              const SizedBox(height: 20),
+              const TextField(
                 decoration: InputDecoration(
-                  hintText: 'New password',
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                  border: OutlineInputBorder(),
+                  labelText: 'New password',
                 ),
+                style: TextStyle(color: Color.fromARGB(255, 0, 0, 255)),
               ),
 
-              const SizedBox(height: 15),
-
               // Confirm password field
-              TextField(
-                controller: confirmPasswordController,
-                obscureText: true,
+              const SizedBox(height: 20),
+              const TextField(
                 decoration: InputDecoration(
-                  hintText: 'Confirm password',
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                  border: OutlineInputBorder(),
+                  labelText: 'Confirm password',
                 ),
+                style: TextStyle(color: Color.fromARGB(255, 0, 0, 255)),
               ),
 
               const SizedBox(height: 20),

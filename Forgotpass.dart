@@ -42,16 +42,13 @@ class ForgotPass extends StatelessWidget {
               const SizedBox(height: 30),
 
               // Email TextField
-              TextField(
-                controller: emailController,
+              const SizedBox(height: 20),
+              const TextField(
                 decoration: InputDecoration(
-                  hintText: 'Email',
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                  border: OutlineInputBorder(),
+                  labelText: 'Email',
                 ),
-                keyboardType: TextInputType.emailAddress,
+                style: TextStyle(color: Color.fromARGB(255, 0, 0, 255)),
               ),
 
               const SizedBox(height: 20),
